@@ -23,21 +23,26 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .item:hover {
   background: hsl(150deg 80% 80%);
 }
+
 .itemText {
   margin-left: 10px;
   display: flex;
   flex-direction: column;
 }
+
 .date {
   margin-bottom: 30px;
 }
+
 .title {
   font-weight: 300;
   color: hsl(150deg 80% 10%);
 }
+
 .image img {
   display: block;
 }
