@@ -6,6 +6,27 @@ import Menu from "./Menu";
 export default function Search({ type }) {
   const inputRef = useRef();
   const [results, setResults] = useState(null);
+  const [resultOffset, setResultOffset] = useState(0);
+
+  const getData = (offset = 0) => {
+    console.log("getting data...");
+    const getParams = new URLSearchParams();
+
+    getParams.set("q", inputRef.current.value);
+    getParams.set("offset", offset);
+
+    if (type) {
+      getParams.set("type", type);
+    }
+
+    fetch(`/api/search?${getParams}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        setResults(json);
+      });
+  };
 
   return (
     <div className={styles.container}>
@@ -22,21 +43,7 @@ export default function Search({ type }) {
           <button
             type="button"
             onClick={() => {
-              const getParams = new URLSearchParams();
-
-              getParams.set("q", inputRef.current.value);
-
-              if (type) {
-                getParams.set("type", type);
-              }
-
-              fetch(`/api/search?${getParams}`)
-                .then((response) => {
-                  return response.json();
-                })
-                .then((json) => {
-                  setResults(json);
-                });
+              getData();
             }}
           >
             Search
@@ -63,6 +70,14 @@ export default function Search({ type }) {
                 </div>
               );
             })}
+            <button
+              onClick={() => {
+                setResultOffset(resultOffset + 10);
+                getData(resultOffset + 10);
+              }}
+            >
+              Next
+            </button>
           </div>
         )}
       </main>
