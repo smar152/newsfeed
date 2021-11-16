@@ -23,7 +23,6 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
-
 .item:hover {
   background: hsl(150deg 80% 80%);
 }
